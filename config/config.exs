@@ -26,6 +26,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :geo_tasks, GeoTasksWeb.Auth.Guardian,
+  issuer: "geo_tasks",
+  secret_key: "Y9JMhX0kB5LHjfdt71oT1zYszxe6w2RlDcfUixkIWzLa3JgTOaX7URFAlNf+qGCA"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
