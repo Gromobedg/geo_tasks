@@ -16,4 +16,17 @@ defmodule GeoTasksWeb.UserController do
       |> render("user.json", %{user: user, token: token})
     end
   end
+
+  def signin(conn, %{"name" => name}) do
+    case Guardian.authenticate(name) do
+      {:ok, user, token} ->
+        conn
+        |> put_status(:created)
+        |> render("user.json", %{user: user, token: token})
+      {:error, status} ->
+        conn
+        |> put_status(status)
+        |> render("error.json", %{name: name, status: status})
+    end
+  end
 end
