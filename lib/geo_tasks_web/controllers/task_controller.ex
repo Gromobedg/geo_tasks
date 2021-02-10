@@ -6,23 +6,23 @@ defmodule GeoTasksWeb.TaskController do
 
   action_fallback GeoTasksWeb.FallbackController
 
-  def new(conn, %{}) do
+  def new(conn, _params) do
     conn |> render("task.json")
   end
 
-  def assigned(conn, %{}) do
+  def assigned(conn, _params) do
     conn |> render("task.json")
   end
 
-  def done(conn, %{}) do
+  def done(conn, _params) do
     conn |> render("task.json")
   end
 
-  def delete(conn, %{}) do
+  def delete(conn, _params) do
     send_resp(conn, :no_content, "")
   end
 
-  def nearest(conn, %{}) do
+  def nearest(conn, _params) do
     conn |> render("task.json")
   end
 end

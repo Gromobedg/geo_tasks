@@ -4,14 +4,11 @@ defmodule GeoTasksWeb.Auth.Guardian do
   alias GeoTasks.Accounts
 
   def subject_for_token(user, _claims) do
-    sub = to_string(user.id)
-    {:ok, sub}
+    {:ok, to_string(user.id)}
   end
 
   def resource_from_claims(claims) do
-    id = claims["sub"]
-    resource = Accounts.get_user!(id)
-    {:ok, resource}
+    {:ok, Accounts.get_user!(claims["sub"])}
   end
 
   def authenticate(name) do
@@ -22,7 +19,7 @@ defmodule GeoTasksWeb.Auth.Guardian do
   end
 
   defp create_token(user) do
-    {:ok, token, _claims} = encode_and_sign(user)
+    {:ok, token, _claims} = encode_and_sign(user, %{role: user.role})
     {:ok, user, token}
   end
 end
