@@ -18,7 +18,7 @@ defmodule GeoTasksWeb.Auth.Guardian do
     end
   end
 
-  defp create_token(user) do
+  def create_token(user) do
     {:ok, token, _claims} = encode_and_sign(user, %{role: user.role})
     {:ok, user, token}
   end

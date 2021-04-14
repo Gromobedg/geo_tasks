@@ -3,17 +3,43 @@
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
   * Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Working from terminal
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+```elixir
+input:
+curl -X POST http://localhost:4000/api/users/signup \
+-H "Content-Type: application/json" -d '{"user": {"name": "nik", "role": "driver"}}'
 
-## Learn more
+output:
+{"id":10,"name":"nik3","role":"driver","token":"eyJhbGciOi..."}
+```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```elixir
+Запрос разрешен для driver
+
+input:
+curl -X POST http://localhost:4000/api/tasks/11/assigned \
+-H "authorization: Bearer eyJhbGci..."  \
+-H "Content-Type: application/json -d '{}'"
+
+output:
+%{}
+```
+
+```elixir
+Запрос запрещен для driver
+
+input:
+curl -X POST http://localhost:4000/api/tasks \
+-H "authorization: Bearer eyJhbGci..."  \
+-H "Content-Type: application/json -d '{}'"
+
+output:
+invalid_token
+```
+
+* Реализована авторизация
+* Реализована система ролей
+* ~~Все остальное~~
